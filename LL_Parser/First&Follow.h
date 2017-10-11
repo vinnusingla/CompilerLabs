@@ -157,3 +157,35 @@ void printParseTable(set<char> &Nterminal,set<char> &Terminal ,map<pair<char,cha
 	for(int i=0;i<siz;i++)cout<<"__________|";
 	cout<<endl;
 }
+
+bool parse(string s,map<pair<char,char>,pair<char,string> > &parseTable,set<char> &Nterminal){
+	stack<char>st;
+	string x;
+	st.push('$');
+	st.push('A');
+	s=s+"$";
+	int siz=s.size(),i,siz2;
+	for(i=0;i<siz;){
+		if(Nterminal.find(st.top())!=Nterminal.end()){
+			if(parseTable.find(make_pair(st.top(),s[i]))!=parseTable.end()){
+				x=parseTable[make_pair(st.top(),s[i])].second;
+				siz2=x.size();
+				st.pop();
+				if(x!="^")
+				for(int j=siz2-1;j>-1;j--){
+					st.push(x[j]);
+				}
+			}
+			else return 0;
+		}
+		else{
+			if(st.top()==s[i]){
+				st.pop();
+				i++;
+			}
+			else return 0;
+		}
+		if(st.top()=='$' && s[i]=='$')return 1;
+	}
+	
+}

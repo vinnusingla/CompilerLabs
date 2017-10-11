@@ -57,6 +57,13 @@ int main(){
 	////////////////////////CreatingParseTable/////////////////////////////////
 	createParseTable(parseTable,first,follow,prod,Nterminal);
 	printParseTable(Nterminal,Terminal,parseTable);
+	//////////////////////////////////////////////////////////////////////////
+	cout<<"Enter string to be parsed - ";
+	string var;
+	cin>>var;
+	if(parse(var,parseTable,Nterminal)==1)cout<<"String belongs to given language";
+	else cout<<"String doesn't belongs to given language";
+	cout<<endl;
 	return 0;
 }
 
